@@ -1,0 +1,62 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <div class="image-with-text {% if section.settings.layout == 'right' %}image-with-text--reverse{% endif %}"
+      style="{% if section.settings.layout == 'right' %}direction: rtl;{% endif %}">
+      <div class="image-with-text__media" style="direction: ltr;">
+        {%- if section.settings.image -%}
+          <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      <div class="image-with-text__content" style="direction: ltr;">
+        {%- if section.settings.heading != blank -%}
+          <h2>{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.content != blank -%}
+          <div>{{ section.settings.content }}</div>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <p style="margin-top:1rem;"><a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a></p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Made to Measure" },
+    { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Every suit is finished by hand and fitted to your measurements, so it moves the way you do.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Book a Fitting" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ],
+  "presets": [
+    { "name": "Image with text" }
+  ]
+}
+{% endschema %}

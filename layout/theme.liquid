@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% if settings.favicon %}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {% endif %}
+
+  {% render 'meta-tags' %}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {{ content_for_header }}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  {%- liquid
+    assign heading_font = settings.type_header_font
+    assign body_font = settings.type_body_font
+  -%}
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+
+  <style>
+    :root {
+      --font-heading-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+      --font-heading-style: {{ heading_font.style }};
+      --font-heading-weight: {{ heading_font.weight }};
+      --font-body-family: {{ body_font.family }}, {{ body_font.fallback_families }};
+      --font-body-style: {{ body_font.style }};
+      --font-body-weight: {{ body_font.weight }};
+
+      --heading-scale: {{ settings.heading_scale }};
+      --body-scale: {{ settings.body_scale }};
+      --page-width: {{ settings.page_width }}px;
+      --spacing-sections: {{ settings.spacing_sections }}px;
+      --spacing-grid-horizontal: {{ settings.spacing_grid_horizontal }}px;
+      --spacing-grid-vertical: {{ settings.spacing_grid_vertical }}px;
+      --button-radius: {{ settings.button_border_radius }}px;
+    }
+
+    .color-scheme-1 {
+      --color-background: {{ settings.scheme_1_background }};
+      --color-background-alt: {{ settings.scheme_1_background_alt }};
+      --color-text: {{ settings.scheme_1_text }};
+      --color-text-muted: {{ settings.scheme_1_text_muted }};
+      --color-accent: {{ settings.scheme_1_accent }};
+      --color-accent-hover: {{ settings.scheme_1_accent_hover }};
+      --color-border: {{ settings.scheme_1_border }};
+      --color-button-text: {{ settings.scheme_1_button_text }};
+    }
+    .color-scheme-2 {
+      --color-background: {{ settings.scheme_2_background }};
+      --color-background-alt: {{ settings.scheme_2_background_alt }};
+      --color-text: {{ settings.scheme_2_text }};
+      --color-text-muted: {{ settings.scheme_2_text_muted }};
+      --color-accent: {{ settings.scheme_2_accent }};
+      --color-accent-hover: {{ settings.scheme_2_accent_hover }};
+      --color-border: {{ settings.scheme_2_border }};
+      --color-button-text: {{ settings.scheme_2_button_text }};
+    }
+    .color-scheme-3 {
+      --color-background: {{ settings.scheme_3_background }};
+      --color-background-alt: {{ settings.scheme_3_background_alt }};
+      --color-text: {{ settings.scheme_3_text }};
+      --color-text-muted: {{ settings.scheme_3_text_muted }};
+      --color-accent: {{ settings.scheme_3_accent }};
+      --color-accent-hover: {{ settings.scheme_3_accent_hover }};
+      --color-border: {{ settings.scheme_3_border }};
+      --color-button-text: {{ settings.scheme_3_button_text }};
+    }
+  </style>
+
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+</head>
+
+<body class="color-scheme-1">
+  <a class="skip-to-content-link visually-hidden" href="#MainContent">Skip to content</a>
+
+  {% section 'announcement-bar' %}
+  {% section 'header' %}
+
+  <main id="MainContent" class="content-for-layout">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  {% if settings.cart_type == 'drawer' %}
+    {% render 'cart-drawer' %}
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="section color-scheme-2">
+  <div class="page-content" style="max-width: 420px;">
+    <h1>{{ 'customer.login_page.title' | t }}</h1>
+
+    {%- form 'customer_login' -%}
+      {%- if form.errors -%}
+        <p class="form-status">{{ form.errors.messages['form'] }}</p>
+      {%- endif -%}
+
+      <div class="field">
+        <label for="CustomerEmail">{{ 'customer.login_page.email' | t }}</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
+      </div>
+
+      {%- if form.password_needed -%}
+        <div class="field">
+          <label for="CustomerPassword">{{ 'customer.login_page.password' | t }}</label>
+          <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password">
+        </div>
+      {%- endif -%}
+
+      <button type="submit" class="button button--full">{{ 'customer.login_page.sign_in' | t }}</button>
+
+      {%- if form.password_needed -%}
+        <p style="margin-top:1rem;">
+          <a href="{{ routes.account_recover_url }}">{{ 'customer.login_page.forgot_password' | t }}</a>
+        </p>
+      {%- endif -%}
+    {%- endform -%}
+
+    {%- if shop.checkout.guest_login -%}
+      <div style="margin-top: 2rem; border-top: 1px solid var(--color-border); padding-top: 2rem;">
+        <h2 style="font-size:1.1rem;">{{ 'customer.login_page.guest_title' | t }}</h2>
+        {%- form 'guest_login' -%}
+          <button type="submit" class="button button--secondary button--full">{{ 'customer.login_page.guest_continue' | t }}</button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+
+    <p style="margin-top:1.5rem;">
+      <a href="{{ routes.account_register_url }}">{{ 'customer.create_account' | t }}</a>
+    </p>
+  </div>
+</div>

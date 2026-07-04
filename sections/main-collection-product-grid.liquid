@@ -1,0 +1,55 @@
+{%- paginate collection.products by section.settings.products_per_page -%}
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+      <span>{{ collection.products_count }} products</span>
+      <form method="get">
+        <label for="SortBy" class="visually-hidden">{{ 'collections.sorting.title' | t }}</label>
+        <select name="sort_by" id="SortBy" onchange="this.form.submit()">
+          <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>Featured</option>
+          <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>{{ 'collections.sorting.best_selling' | t }}</option>
+          <option value="title-ascending" {% if collection.sort_by == 'title-ascending' %}selected{% endif %}>{{ 'collections.sorting.az' | t }}</option>
+          <option value="title-descending" {% if collection.sort_by == 'title-descending' %}selected{% endif %}>{{ 'collections.sorting.za' | t }}</option>
+          <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>{{ 'collections.sorting.price_ascending' | t }}</option>
+          <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>{{ 'collections.sorting.price_descending' | t }}</option>
+          <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>{{ 'collections.sorting.created_descending' | t }}</option>
+        </select>
+      </form>
+    </div>
+
+    {%- if collection.products.size == 0 -%}
+      <p>{{ 'collections.general.no_matches' | t }}</p>
+    {%- else -%}
+      <div
+        class="product-grid"
+        style="--grid-cols-desktop: {{ settings.products_per_row_desktop }}; --grid-cols-mobile: {{ settings.products_per_row_mobile }};"
+      >
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+      {% render 'pagination', paginate: paginate %}
+    {%- endif -%}
+  </div>
+</div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    { "type": "range", "id": "products_per_page", "min": 8, "max": 48, "step": 4, "label": "Products per page", "default": 16 },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

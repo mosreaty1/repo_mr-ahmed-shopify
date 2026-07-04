@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "categories": {
+      "type": "collection-list"
+    },
+    "new-arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "New Arrivals",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "brand-story": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Made to Measure",
+        "layout": "left",
+        "color_scheme": "scheme-1"
+      }
+    },
+    "suits": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "The Suit Shop",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "footwear-story": {
+      "type": "image-with-text",
+      "settings": {
+        "heading": "Built to Last",
+        "content": "<p>Full-grain leathers, Goodyear welts, and soles that go the distance — footwear made for daily wear.</p>",
+        "layout": "right",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials"
+    },
+    "newsletter": {
+      "type": "newsletter"
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "new-arrivals",
+    "brand-story",
+    "suits",
+    "footwear-story",
+    "testimonials",
+    "newsletter"
+  ]
+}

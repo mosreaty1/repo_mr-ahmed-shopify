@@ -1,0 +1,54 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <form action="{{ routes.search_url }}" method="get" role="search" style="max-width:480px; margin: 0 auto 2rem;">
+      <div class="header-search" style="width:100%;">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" style="width:100%; border:1px solid var(--color-border); padding:0.8rem 1rem;">
+        <input type="hidden" name="type" value="product">
+        <button type="submit">{% render 'icon', icon: 'search' %}</button>
+      </div>
+    </form>
+
+    {%- if search.performed -%}
+      <p style="text-align:center; margin-bottom:2rem;">
+        {%- if search.results_count > 0 -%}
+          {{ 'general.search.results_with_count' | t: count: search.results_count }} {{ 'general.search.search' | t | downcase }} "{{ search.terms }}"
+        {%- else -%}
+          {{ 'general.search.no_results' | t: terms: search.terms }}
+        {%- endif -%}
+      </p>
+
+      {%- if search.results_count > 0 -%}
+        <div class="product-grid" style="--grid-cols-desktop: {{ settings.products_per_row_desktop }}; --grid-cols-mobile: {{ settings.products_per_row_mobile }};">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- else -%}
+              <a href="{{ item.url }}">
+                <h3>{{ item.title }}</h3>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

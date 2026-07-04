@@ -1,0 +1,58 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="article-content">
+    <div class="breadcrumb">
+      <a href="{{ blog.url }}">{{ 'blogs.article.back_to_blog' | t: title: blog.title }}</a>
+    </div>
+    <h1>{{ article.title }}</h1>
+    <p style="color: var(--color-text-muted);">{{ article.published_at | date: '%B %d, %Y' }} {% if article.author != blank %}&middot; {{ article.author }}{% endif %}</p>
+
+    {%- if article.image -%}
+      <img src="{{ article.image | image_url: width: 1400 }}" alt="{{ article.title | escape }}" style="margin: 2rem 0; width:100%; aspect-ratio:2/1; object-fit:cover;">
+    {%- endif -%}
+
+    <div>{{ article.content }}</div>
+
+    {%- if blog.comments_enabled? -%}
+      <div style="margin-top: 3rem;">
+        {{ article.comments_count }} comments
+        {% form 'new_comment', article %}
+          {%- if form.posted_successfully? -%}
+            <p class="form-status">Your comment was posted successfully.</p>
+          {%- endif -%}
+          <div class="field">
+            <label for="CommentAuthor">Name</label>
+            <input type="text" name="comment[author]" id="CommentAuthor" required>
+          </div>
+          <div class="field">
+            <label for="CommentEmail">Email</label>
+            <input type="email" name="comment[email]" id="CommentEmail" required>
+          </div>
+          <div class="field">
+            <label for="CommentBody">Comment</label>
+            <textarea name="comment[body]" id="CommentBody" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="button">Post comment</button>
+        {% endform %}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

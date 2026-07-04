@@ -1,0 +1,26 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="error-page">
+    <h1>{{ '404.title' | t }}</h1>
+    <p>{{ '404.subtext' | t }}</p>
+    <a href="{{ routes.root_url }}" class="button">{{ '404.link' | t }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404 page",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

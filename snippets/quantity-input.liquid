@@ -1,0 +1,15 @@
+{%- comment -%}
+  Usage: {% render 'quantity-input', quantity: 1, name: 'quantity' %}
+{%- endcomment -%}
+<div class="quantity-input" data-quantity-input>
+  <button type="button" data-quantity-decrease aria-label="Decrease quantity">{% render 'icon', icon: 'minus' %}</button>
+  <input
+    type="number"
+    name="{{ name | default: 'quantity' }}"
+    value="{{ quantity | default: 1 }}"
+    min="0"
+    data-quantity-value
+    aria-label="{{ 'products.product.quantity.label' | t }}"
+  >
+  <button type="button" data-quantity-increase aria-label="Increase quantity">{% render 'icon', icon: 'plus' %}</button>
+</div>

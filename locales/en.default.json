@@ -1,0 +1,162 @@
+{
+  "general": {
+    "search": {
+      "search": "Search",
+      "placeholder": "Search products",
+      "no_results": "No results found for \"{{ terms }}\"",
+      "results_with_count": {
+        "one": "{{ count }} result",
+        "other": "{{ count }} results"
+      }
+    },
+    "cart": {
+      "view_cart": "View cart",
+      "checkout": "Checkout"
+    },
+    "continue_shopping": "Continue shopping",
+    "password_page": {
+      "login_form_heading": "Enter using password",
+      "login_password_button": "Enter",
+      "login_form_password_label": "Password",
+      "login_form_error": "Wrong password!",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\">Log in here</a>"
+    }
+  },
+  "newsletter": {
+    "label": "Email",
+    "success": "Thanks for subscribing",
+    "button_label": "Subscribe"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "quantity": {
+        "label": "Quantity"
+      },
+      "choose_options": "Choose options",
+      "vendor": "Vendor",
+      "sku": "SKU",
+      "price": {
+        "regular_price": "Regular price",
+        "sale_price": "Sale price"
+      },
+      "view_full_details": "View full details"
+    }
+  },
+  "collections": {
+    "general": {
+      "no_matches": "No products found in this collection",
+      "clear": "Clear",
+      "sort_button": "Sort",
+      "filter_button": "Filter"
+    },
+    "sorting": {
+      "title": "Sort by",
+      "best_selling": "Best selling",
+      "az": "Alphabetically, A-Z",
+      "za": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "created_descending": "Date, new to old",
+      "created_ascending": "Date, old to new"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "cart_error": "There was an error while updating your cart",
+      "remove": "Remove",
+      "close": "Close",
+      "note": "Order note",
+      "subtotal": "Subtotal",
+      "shipping_at_checkout": "Taxes and shipping calculated at checkout"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My account",
+      "details": "Account details",
+      "view_addresses": "View addresses",
+      "return": "Return to account details"
+    },
+    "account_fallback": "Account",
+    "log_in": "Log in",
+    "log_out": "Log out",
+    "create_account": "Create account",
+    "login_page": {
+      "cancel": "Cancel",
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign in",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue"
+    },
+    "register_page": {
+      "title": "Create account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create"
+    },
+    "reset_password": {
+      "title": "Reset your password",
+      "subtext": "We will send you an email to reset your password",
+      "submit": "Submit"
+    },
+    "activate_account": {
+      "title": "Activate account",
+      "subtext": "Create your password to activate your account",
+      "password": "Password",
+      "password_confirm": "Confirm password",
+      "submit": "Activate account",
+      "cancel": "Decline invitation"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date_html": "Placed on {{ date }}",
+      "cancelled_html": "Order Cancelled on {{ date }}",
+      "billing_address": "Billing address",
+      "shipping_address": "Shipping address",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "fulfilled_at_html": "Fulfilled {{ date }}"
+    },
+    "orders": {
+      "title": "Order history",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment status",
+      "fulfillment_status": "Fulfillment status",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "addresses": {
+      "title": "Addresses",
+      "add_new": "Add a new address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "default": "Default"
+    }
+  },
+  "blogs": {
+    "article": {
+      "read_more": "Read more",
+      "back_to_blog": "Back to {{ title }}"
+    }
+  },
+  "404": {
+    "title": "Page not found",
+    "subtext": "The page you requested does not exist.",
+    "link": "Continue shopping"
+  }
+}

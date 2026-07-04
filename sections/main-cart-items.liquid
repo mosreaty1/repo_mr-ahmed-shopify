@@ -1,0 +1,79 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <h1>{{ 'cart.general.title' | t }}</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty-state">
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button">{{ 'general.continue_shopping' | t }}</a>
+      </div>
+    {%- else -%}
+      {%- form 'cart', cart -%}
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>{{ 'products.product.price.regular_price' | t }}</th>
+              <th>{{ 'products.product.quantity.label' | t }}</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr>
+                <td>
+                  <div style="display:flex; gap:1rem; align-items:center;">
+                    <img src="{{ item.image | image_url: width: 180 }}" alt="{{ item.title | escape }}" loading="lazy">
+                    <div>
+                      <a href="{{ item.url }}">{{ item.product.title }}</a>
+                      {%- if item.variant.title != 'Default Title' -%}
+                        <p style="color: var(--color-text-muted); font-size:0.85rem;">{{ item.variant.title }}</p>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </td>
+                <td>{{ item.original_price | money }}</td>
+                <td>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width:4rem;">
+                </td>
+                <td>{{ item.final_line_price | money }}</td>
+                <td><a href="{{ item.url_to_remove }}" class="cart-item__remove">{{ 'cart.general.remove' | t }}</a></td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        {%- if settings.cart_notes_enable -%}
+          <div class="field" style="margin-top:2rem; max-width: 420px;">
+            <label for="CartNote">{{ 'cart.general.note' | t }}</label>
+            <textarea name="note" id="CartNote" rows="3">{{ cart.note }}</textarea>
+          </div>
+        {%- endif -%}
+
+        <div style="margin-top:1.5rem;">
+          <button type="submit" name="update" class="button button--secondary">Update cart</button>
+        </div>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart items",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

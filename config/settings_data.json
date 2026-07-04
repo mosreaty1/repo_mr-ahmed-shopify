@@ -1,0 +1,62 @@
+{
+  "current": {
+    "logo_width": 140,
+    "shop_name": "Kent & Holloway",
+    "shop_tagline": "Tailored for the Modern Man",
+
+    "scheme_1_background": "#121212",
+    "scheme_1_background_alt": "#1b1b1b",
+    "scheme_1_text": "#f2ede1",
+    "scheme_1_text_muted": "#b8b2a4",
+    "scheme_1_accent": "#c8a24a",
+    "scheme_1_accent_hover": "#e0bd63",
+    "scheme_1_border": "#33302a",
+    "scheme_1_button_text": "#121212",
+
+    "scheme_2_background": "#f7f4ec",
+    "scheme_2_background_alt": "#efe9db",
+    "scheme_2_text": "#1b1b1b",
+    "scheme_2_text_muted": "#5c574c",
+    "scheme_2_accent": "#9c7a2e",
+    "scheme_2_accent_hover": "#7d611f",
+    "scheme_2_border": "#ddd6c4",
+    "scheme_2_button_text": "#f7f4ec",
+
+    "scheme_3_background": "#c8a24a",
+    "scheme_3_background_alt": "#b6912f",
+    "scheme_3_text": "#121212",
+    "scheme_3_text_muted": "#2c2517",
+    "scheme_3_accent": "#121212",
+    "scheme_3_accent_hover": "#000000",
+    "scheme_3_border": "#a3822f",
+    "scheme_3_button_text": "#f7f4ec",
+
+    "type_header_font": "playfair_display_n7",
+    "type_body_font": "assistant_n4",
+    "heading_scale": 100,
+    "body_scale": 100,
+
+    "page_width": 1400,
+    "spacing_sections": 60,
+    "spacing_grid_horizontal": 24,
+    "spacing_grid_vertical": 32,
+
+    "button_border_radius": 0,
+
+    "products_per_row_desktop": 4,
+    "products_per_row_mobile": "2",
+    "product_image_ratio": "portrait",
+    "show_secondary_image": true,
+    "show_vendor": false,
+
+    "cart_type": "drawer",
+    "cart_notes_enable": true,
+
+    "social_instagram": "",
+    "social_facebook": "",
+    "social_pinterest": "",
+    "social_tiktok": "",
+    "social_twitter": ""
+  },
+  "presets": {}
+}

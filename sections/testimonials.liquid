@@ -1,0 +1,58 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 style="text-align:center; margin-bottom: 2rem;">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <div class="testimonials">
+      {%- for block in section.blocks -%}
+        <div class="testimonial" {{ block.shopify_attributes }}>
+          <div class="testimonial__stars">
+            {%- for i in (1..5) -%}{% render 'icon', icon: 'star' %}{%- endfor -%}
+          </div>
+          <p>&ldquo;{{ block.settings.quote }}&rdquo;</p>
+          <p class="testimonial__author">{{ block.settings.author }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What Our Customers Say" },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "The fit is impeccable and the fabric feels twice the price. My go-to for suits now." },
+        { "type": "text", "id": "author", "label": "Author", "default": "James R." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "testimonial" },
+      { "type": "testimonial", "settings": { "quote": "Fast shipping, true to size, and the leather boots have held up beautifully.", "author": "Daniel K." } },
+      { "type": "testimonial", "settings": { "quote": "Finally a casualwear line that doesn't sacrifice quality for style.", "author": "Marcus T." } }
+    ]
+  },
+  "presets": [
+    { "name": "Testimonials" }
+  ]
+}
+{% endschema %}

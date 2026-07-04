@@ -1,0 +1,19 @@
+{%- if settings.social_instagram or settings.social_facebook or settings.social_pinterest or settings.social_tiktok or settings.social_twitter -%}
+  <div class="social-icons">
+    {%- if settings.social_instagram -%}
+      <a href="{{ settings.social_instagram }}" aria-label="Instagram" target="_blank" rel="noopener">{% render 'icon', icon: 'instagram' %}</a>
+    {%- endif -%}
+    {%- if settings.social_facebook -%}
+      <a href="{{ settings.social_facebook }}" aria-label="Facebook" target="_blank" rel="noopener">{% render 'icon', icon: 'facebook' %}</a>
+    {%- endif -%}
+    {%- if settings.social_pinterest -%}
+      <a href="{{ settings.social_pinterest }}" aria-label="Pinterest" target="_blank" rel="noopener">{% render 'icon', icon: 'pinterest' %}</a>
+    {%- endif -%}
+    {%- if settings.social_tiktok -%}
+      <a href="{{ settings.social_tiktok }}" aria-label="TikTok" target="_blank" rel="noopener">{% render 'icon', icon: 'tiktok' %}</a>
+    {%- endif -%}
+    {%- if settings.social_twitter -%}
+      <a href="{{ settings.social_twitter }}" aria-label="X / Twitter" target="_blank" rel="noopener">{% render 'icon', icon: 'twitter' %}</a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

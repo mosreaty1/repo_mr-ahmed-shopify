@@ -1,0 +1,108 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+<header class="site-header color-{{ section.settings.color_scheme }}">
+  <div class="page-width site-header__inner">
+    <button class="mobile-nav-toggle" data-mobile-nav-toggle aria-label="Open menu">
+      {% render 'icon', icon: 'menu' %}
+    </button>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      {%- if section.settings.logo -%}
+        <img
+          src="{{ section.settings.logo | image_url: width: 300 }}"
+          alt="{{ shop.name }}"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
+          style="--logo-height: {{ section.settings.logo_height }}px;"
+        >
+      {%- else -%}
+        <span>{{ settings.shop_name | default: shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul style="display:flex; gap:2rem;">
+        {%- for link in menu.links -%}
+          <li class="{% if link.links.size > 0 %}has-submenu{% endif %}">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- if link.links.size > 0 -%}
+              <ul class="submenu">
+                {%- for child_link in link.links -%}
+                  <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <form action="{{ routes.search_url }}" method="get" class="header-search" role="search">
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.search' | t }}">
+        <button type="submit" aria-label="{{ 'general.search.search' | t }}">{% render 'icon', icon: 'search' %}</button>
+      </form>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" aria-label="{{ 'customer.account_fallback' | t }}">
+          {% render 'icon', icon: 'account' %}
+        </a>
+      {%- endif -%}
+
+      {%- if settings.cart_type == 'drawer' -%}
+        <button type="button" data-cart-drawer-toggle aria-label="{{ 'cart.general.title' | t }}">
+          {% render 'icon', icon: 'cart' %}
+          <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+        </button>
+      {%- else -%}
+        <a href="{{ routes.cart_url }}" aria-label="{{ 'cart.general.title' | t }}">
+          {% render 'icon', icon: 'cart' %}
+          <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav color-scheme-1" data-mobile-nav>
+  <button class="mobile-nav__close" data-mobile-nav-close aria-label="Close menu">
+    {% render 'icon', icon: 'close' %}
+  </button>
+  <ul>
+    {%- for link in menu.links -%}
+      <li>
+        <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- if link.links.size > 0 -%}
+          <ul>
+            {%- for child_link in link.links -%}
+              <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "range", "id": "logo_height", "min": 24, "max": 80, "step": 2, "unit": "px", "label": "Logo height", "default": 44 },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}

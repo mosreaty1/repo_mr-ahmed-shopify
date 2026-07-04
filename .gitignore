@@ -1,0 +1,5 @@
+.DS_Store
+*.log
+.shopifyignore
+.env
+node_modules/

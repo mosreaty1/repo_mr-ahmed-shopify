@@ -1,0 +1,86 @@
+<footer class="site-footer color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <div class="footer-grid">
+      <div>
+        <a href="{{ routes.root_url }}" class="site-header__logo">
+          {%- if settings.logo -%}
+            <img src="{{ settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" width="{{ settings.logo_width }}">
+          {%- else -%}
+            <span>{{ settings.shop_name | default: shop.name }}</span>
+          {%- endif -%}
+        </a>
+        {%- if settings.shop_tagline != blank -%}
+          <p style="margin-top: 0.75rem; color: var(--color-text-muted);">{{ settings.shop_tagline }}</p>
+        {%- endif -%}
+        {% render 'social-icons' %}
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_list' -%}
+          <div {{ block.shopify_attributes }}>
+            <h4>{{ block.settings.heading }}</h4>
+            <ul>
+              {%- for link in block.settings.menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- elsif block.type == 'text' -%}
+          <div {{ block.shopify_attributes }}>
+            <h4>{{ block.settings.heading }}</h4>
+            <div>{{ block.settings.content }}</div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.bottom_text }}</span>
+      <span>{{ shop.address.country }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-1"
+    },
+    { "type": "text", "id": "bottom_text", "label": "Bottom text", "default": "All rights reserved." }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text block",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Customer care" },
+        { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Contact us at hello@example.com</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_list", "settings": { "heading": "Shop" } },
+      { "type": "text", "settings": { "heading": "Customer care" } }
+    ]
+  }
+}
+{% endschema %}

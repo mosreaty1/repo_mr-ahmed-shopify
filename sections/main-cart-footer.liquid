@@ -1,0 +1,33 @@
+{%- if cart.item_count > 0 -%}
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width" style="max-width: 480px; margin-left:auto; margin-right:0; text-align:right;">
+    <div style="display:flex; justify-content:space-between; font-size:1.2rem; margin-bottom:1rem;">
+      <span>{{ 'cart.general.subtotal' | t }}</span>
+      <strong>{{ cart.total_price | money }}</strong>
+    </div>
+    <p style="color: var(--color-text-muted); font-size:0.85rem;">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+    <form action="/cart" method="post">
+      <button type="submit" name="checkout" class="button button--full" style="margin-top:1rem;">{{ 'general.cart.checkout' | t }}</button>
+    </form>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart footer",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

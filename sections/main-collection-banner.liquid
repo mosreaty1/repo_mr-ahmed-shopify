@@ -1,0 +1,28 @@
+<div class="collection-banner color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <h1>{{ collection.title }}</h1>
+    {%- if section.settings.show_description and collection.description != blank -%}
+      <p>{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection banner",
+  "settings": [
+    { "type": "checkbox", "id": "show_description", "label": "Show collection description", "default": true },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}

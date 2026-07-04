@@ -1,0 +1,39 @@
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="rich-text">
+    {%- if section.settings.heading != blank -%}
+      <h2>{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.content != blank -%}
+      <div>{{ section.settings.content }}</div>
+    {%- endif -%}
+    {%- if section.settings.button_label != blank -%}
+      <p style="margin-top:1.5rem;"><a href="{{ section.settings.button_link | default: '#' }}" class="button">{{ section.settings.button_label }}</a></p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Our Craft" },
+    { "type": "richtext", "id": "content", "label": "Content", "default": "<p>Since day one, we've sourced fine wools and full-grain leathers to build a wardrobe that moves easily between the office, the weekend, and everything after.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    { "name": "Rich text" }
+  ]
+}
+{% endschema %}

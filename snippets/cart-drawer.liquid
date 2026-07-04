@@ -1,0 +1,44 @@
+<div class="cart-drawer__overlay" data-cart-drawer-overlay></div>
+<aside class="cart-drawer color-scheme-1" data-cart-drawer aria-label="{{ 'cart.general.title' | t }}">
+  <div class="cart-drawer__header">
+    <h2>{{ 'cart.general.title' | t }}</h2>
+    <button type="button" data-cart-drawer-close aria-label="{{ 'cart.general.close' | t }}">
+      {% render 'icon', icon: 'close' %}
+    </button>
+  </div>
+
+  <div class="cart-drawer__items" data-cart-drawer-items>
+    {%- if cart.item_count == 0 -%}
+      <p class="cart-empty-state">{{ 'cart.general.empty' | t }}</p>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="cart-item" data-cart-item data-key="{{ item.key }}">
+          <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" loading="lazy" width="80">
+          <div>
+            <p class="cart-item__title">{{ item.product.title }}</p>
+            {%- if item.variant.title != 'Default Title' -%}
+              <p class="cart-item__variant">{{ item.variant.title }}</p>
+            {%- endif -%}
+            {% render 'quantity-input', quantity: item.quantity %}
+          </div>
+          <div>
+            <p class="price">{{ item.final_line_price | money }}</p>
+            <button type="button" class="cart-item__remove" data-cart-remove>{{ 'cart.general.remove' | t }}</button>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="cart-drawer__footer" data-cart-drawer-footer {% if cart.item_count == 0 %}style="display:none;"{% endif %}>
+    <div class="cart-drawer__subtotal">
+      <span>{{ 'cart.general.subtotal' | t }}</span>
+      <strong data-cart-subtotal>{{ cart.total_price | money }}</strong>
+    </div>
+    <p class="cart-drawer__note">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+    <a href="/cart" class="button button--secondary button--full">{{ 'general.cart.view_cart' | t }}</a>
+    <form action="/cart" method="post">
+      <button type="submit" name="checkout" class="button button--full">{{ 'general.cart.checkout' | t }}</button>
+    </form>
+  </div>
+</aside>

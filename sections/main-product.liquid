@@ -1,0 +1,129 @@
+{%- liquid
+  assign product = product
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+<div class="section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <div class="breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a> /
+      {%- if product.collections.first -%}
+        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a> /
+      {%- endif -%}
+      {{ product.title }}
+    </div>
+
+    <div class="product-main" data-product-info>
+      <script type="application/json" data-product-json>{{ product.json }}</script>
+
+      <div class="product-main__gallery">
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            {%- if forloop.first -%}
+              <img
+                data-product-main-image
+                src="{{ media | image_url: width: 1200 }}"
+                alt="{{ media.alt | escape }}"
+                width="{{ media.width }}"
+                height="{{ media.height }}"
+              >
+            {%- else -%}
+              <img src="{{ media | image_url: width: 1200 }}" alt="{{ media.alt | escape }}" loading="lazy">
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+
+      <div class="product-main__info">
+        {%- if settings.show_vendor -%}
+          <p class="product-card__vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+        <h1>{{ product.title }}</h1>
+
+        <div class="product-main__price">
+          <span data-product-price>{{ current_variant.price | money }}</span>
+          <span data-product-compare-price class="price--compare" {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
+            {{ current_variant.compare_at_price | money }}
+          </span>
+        </div>
+
+        {%- form 'product', product, data-product-form: true -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+          {%- for option in product.options_with_values -%}
+            <div class="product-form__option">
+              <span class="product-form__option-name">{{ option.name }}: <span data-option-value-label>{{ option.selected_value }}</span></span>
+              <div class="swatch-list">
+                {%- for value in option.values -%}
+                  {%- assign input_id = option.position | append: '-' | append: forloop.index -%}
+                  <input
+                    type="radio"
+                    id="option-{{ input_id }}"
+                    name="option-{{ option.position }}"
+                    value="{{ value | escape }}"
+                    data-option-index="{{ option.position | minus: 1 }}"
+                    {% if option.selected_value == value %}checked{% endif %}
+                  >
+                  <label for="option-{{ input_id }}">{{ value }}</label>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+
+          <div class="product-form__buy-buttons">
+            {% render 'quantity-input' %}
+            <button
+              type="submit"
+              class="button button--full"
+              data-add-to-cart
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              <span data-add-to-cart-text>
+                {%- if current_variant.available -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+          <p data-form-error class="form-status" hidden></p>
+        {%- endform -%}
+
+        <div class="product-accordion">
+          {%- if product.description != blank -%}
+            <details open>
+              <summary>Description</summary>
+              <div class="content">{{ product.description }}</div>
+            </details>
+          {%- endif -%}
+          <details>
+            <summary>Shipping & Returns</summary>
+            <div class="content">{{ section.settings.shipping_text }}</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": [
+    { "type": "richtext", "id": "shipping_text", "label": "Shipping & returns text", "default": "<p>Free standard shipping on orders over $150. Returns accepted within 30 days of delivery.</p>" },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1 — Dark" },
+        { "value": "scheme-2", "label": "Scheme 2 — Light" },
+        { "value": "scheme-3", "label": "Scheme 3 — Gold" }
+      ],
+      "default": "scheme-2"
+    }
+  ]
+}
+{% endschema %}
