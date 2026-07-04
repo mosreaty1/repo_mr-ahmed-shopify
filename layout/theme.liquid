@@ -27,8 +27,14 @@
 
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
-  {{ settings.type_header_font | font_face: font_display: 'swap' }}
-  {{ settings.type_body_font | font_face: font_display: 'swap' }}
+  {%- style -%}
+    {%- unless settings.type_body_font.system? -%}
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+    {%- endunless -%}
+  {%- endstyle -%}
 
   <style>
     :root {
